@@ -20,7 +20,7 @@ public class SquareWins {
     private ArrayList<Vector> vectors = new ArrayList<>();
     private double aLength;
     private double bLength;
-    private Vector aV, bV, cV, dV;
+    private Vector expectedVectorA, expectedVectorA;
 
     public void createField() {
         field = new int[5][5];
@@ -75,8 +75,7 @@ public class SquareWins {
                                     if (checkIfPointsAreEquals(points[a], points[b])) {
                                         //System.out.println("Punkte sind gleich.");
                                         commonPoint = points[b];
-                                        System.out.println("(common Hinzugefügt");
-                                        printOutPointXAndY(commonPoint, commonPoint);
+                                        System.out.println("(common Hinzugefügt "+commonPoint.getX() +"/"+ commonPoint.getY());
                                         System.out.println("Hinzugefügt)");
                                     }
                                 }
@@ -85,23 +84,24 @@ public class SquareWins {
                         Point pointNotCommon;
                         if (checkCoordinates(vectors.get(i).getPointA(), commonPoint)) {
                             pointNotCommon = vectors.get(i).getPointB();
-                            
+                            System.out.println(pointNotCommon.getX() +"/"+ pointNotCommon.getY());
                         } else {
                             pointNotCommon = vectors.get(i).getPointA();
+                            System.out.println(pointNotCommon.getX() +"/"+ pointNotCommon.getY());
                         }
-                        if (vectors.get(j).getPointA() == (commonPoint)) {
+                        if (checkCoordinates(vectors.get(j).getPointA(), commonPoint)) {
                             pointNotCommon = vectors.get(j).getPointB();
-                            
+                            System.out.println(pointNotCommon.getX() +"/"+ pointNotCommon.getY());
                         } else {
                             pointNotCommon = vectors.get(j).getPointA();
-                            
+                            System.out.println(pointNotCommon.getX() +"/"+ pointNotCommon.getY());
                         }
-                        for (Vector vec : vectors) {
-                            if (checkAll(vec, this.aV) && checkAll(vec, this.bV)) {
-                                System.out.println("Win!!!!!");
-                                break;
-                            }
-                        }
+//                        for (Vector vec : vectors) {
+//                            if (checkAll(vec, this.aV) && checkAll(vec, this.bV)) {
+//                                System.out.println("Win!!!!!");
+//                                break;
+//                            }
+//                        }
                         
                     }
                 }
