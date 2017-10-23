@@ -20,7 +20,7 @@ public class SquareWins {
     private ArrayList<Vector> vectors = new ArrayList<>();
     private double aLength;
     private double bLength;
-    private Vector expectedVectorA, expectedVectorA;
+    private Vector expectedVectorA, expectedVectorB;
 
     public void createField() {
         field = new int[5][5];
