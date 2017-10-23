@@ -83,14 +83,14 @@ public class SquareWins {
                             }
                         }
                         Point pointNotCommon;
-                        if (vectors.get(i).getPointA() == (commonPoint)) {
+                        if (vectors.get(i).getPointA().getX() == commonPoint.getX() && vectors.get(i).getPointA().getY() == commonPoint.getY()) {
                             pointNotCommon = vectors.get(i).getPointB();
                             this.aV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(j).getxVec()), pointNotCommon.getY() + vectors.get(j).getyVec()));
                         } else {
                             pointNotCommon = vectors.get(i).getPointA();
                             this.aV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(j).getxVec()), pointNotCommon.getY() + vectors.get(j).getyVec()));
                         }
-                        if (vectors.get(j).getPointA() == (commonPoint)) {
+                        if (vectors.get(j).getPointA().getX() == commonPoint.getX() && vectors.get(j).getPointA().getY() == commonPoint.getY()) {
                             pointNotCommon = vectors.get(j).getPointB();
                             this.bV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(i).getxVec()), pointNotCommon.getY() + vectors.get(i).getyVec()));
                         } else {
