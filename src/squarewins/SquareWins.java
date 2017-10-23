@@ -83,19 +83,18 @@ public class SquareWins {
                             }
                         }
                         Point pointNotCommon;
-                        if (vectors.get(i).getPointA() == (commonPoint)) {
+                        if (checkCoordinates(vectors.get(i).getPointA(), commonPoint)) {
                             pointNotCommon = vectors.get(i).getPointB();
-                            this.aV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(j).getxVec()), pointNotCommon.getY() + vectors.get(j).getyVec()));
+                            
                         } else {
                             pointNotCommon = vectors.get(i).getPointA();
-                            this.aV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(j).getxVec()), pointNotCommon.getY() + vectors.get(j).getyVec()));
                         }
                         if (vectors.get(j).getPointA() == (commonPoint)) {
                             pointNotCommon = vectors.get(j).getPointB();
-                            this.bV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(i).getxVec()), pointNotCommon.getY() + vectors.get(i).getyVec()));
+                            
                         } else {
                             pointNotCommon = vectors.get(j).getPointA();
-                            this.bV = new Vector(pointNotCommon, new Point((pointNotCommon.getX() + vectors.get(i).getxVec()), pointNotCommon.getY() + vectors.get(i).getyVec()));
+                            
                         }
                         for (Vector vec : vectors) {
                             if (checkAll(vec, this.aV) && checkAll(vec, this.bV)) {
@@ -108,6 +107,17 @@ public class SquareWins {
                 }
             }
         }
+    }
+    
+    
+    /*
+    *   it checks if p1 equals p2
+    */
+    public boolean checkCoordinates(Point p1, Point p2){
+        if(p1.getX() == p2.getX() && p1.getY() == p2.getY()){
+            return true;
+        }
+        return false;
     }
 
     public boolean checkAll(Vector a, Vector b) {
