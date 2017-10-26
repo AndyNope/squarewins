@@ -114,7 +114,25 @@ public class SquareWins {
             }
         }
     }
-
+    /*
+        Wieso nid boolean?
+        public boolean expectedVectorExists() {
+        int i = 0;
+        boolean expected = false;
+        for (Vector v : vectors) {
+            if (checkIfPointsOfVectorsAreEquals(v, expectedVectorB) || checkIfPointsOfVectorsAreEquals(v, expectedVectorA)) 
+            {
+                expected = true;
+                break;
+            }
+        }
+        if (expected) 
+        {
+            return true;
+        }
+        return false;
+    }
+    */
     //It checks the calculated expected vector if they exist,when yes then win!!!
     public boolean expectedVectorExists() {
         int i = 0;
