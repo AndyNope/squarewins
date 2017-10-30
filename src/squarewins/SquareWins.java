@@ -20,7 +20,7 @@ public class SquareWins {
     private ArrayList<Vector> vectors = new ArrayList<>();
     private double aLength;
     private double bLength;
-    private Vector expectedVectorA = null, expectedVectorB = null;
+    private Vector expectedVectorA, expectedVectorB, expectedVectorA2, expectedVectorB2;
 
     public void createField() {
         field = new int[5][5];
@@ -87,20 +87,23 @@ public class SquareWins {
                             System.out.println(pointNotCommon.getX() + "/" + pointNotCommon.getY());
                             //add expected Vector for finishing the square
                             expectedVectorA = new Vector(pointNotCommon, new Point(pointNotCommon.getX() + vectors.get(j).getxVec(), pointNotCommon.getX() + vectors.get(j).getxVec()));
+                            expectedVectorA2 = new Vector(new Point(pointNotCommon.getX() + vectors.get(j).getxVec(), pointNotCommon.getX() + vectors.get(j).getxVec()), pointNotCommon);
                         } else {
                             pointNotCommon = vectors.get(i).getPointA();
                             //System.out.println(pointNotCommon.getX() +"/"+ pointNotCommon.getY());
                             expectedVectorA = new Vector(pointNotCommon, new Point(pointNotCommon.getX() + vectors.get(j).getxVec(), pointNotCommon.getX() + vectors.get(j).getxVec()));
+                            expectedVectorA2 = new Vector(new Point(pointNotCommon.getX() + vectors.get(j).getxVec(), pointNotCommon.getX() + vectors.get(j).getxVec()), pointNotCommon);
                         }
                         if (checkCoordinates(vectors.get(j).getPointA(), commonPoint)) {
                             pointNotCommon = vectors.get(j).getPointB();
                             System.out.println(pointNotCommon.getX() + "/" + pointNotCommon.getY());
                             expectedVectorB = new Vector(pointNotCommon, new Point(pointNotCommon.getX() + vectors.get(i).getxVec(), pointNotCommon.getX() + vectors.get(i).getxVec()));
+                            expectedVectorB2 = new Vector(new Point(pointNotCommon.getX() + vectors.get(i).getxVec(), pointNotCommon.getX() + vectors.get(i).getxVec()), pointNotCommon);
                         } else {
                             pointNotCommon = vectors.get(j).getPointA();
                             System.out.println(pointNotCommon.getX() + "/" + pointNotCommon.getY());
                             expectedVectorB = new Vector(pointNotCommon, new Point(pointNotCommon.getX() + vectors.get(i).getxVec(), pointNotCommon.getX() + vectors.get(i).getxVec()));
-
+                            expectedVectorB2 = new Vector(new Point(pointNotCommon.getX() + vectors.get(i).getxVec(), pointNotCommon.getX() + vectors.get(i).getxVec()), pointNotCommon);
                         }
                         printPointsOfVectors(expectedVectorA, expectedVectorB);
                         if (expectedVectorExists()) {
@@ -118,24 +121,39 @@ public class SquareWins {
     //It checks the calculated expected vector if they exist,when yes then win!!!
     public boolean expectedVectorExists() {
         int i = 0;
+        printOutAllVectors(vectors);
         for (Vector v : vectors) {
             if (checkIfPointsOfVectorsAreEquals(v, expectedVectorA)) {
                 System.out.println("1");
                 i++;
-                break;
             }
         }
         for (Vector v : vectors) {
             if (checkIfPointsOfVectorsAreEquals(v, expectedVectorB)) {
                 System.out.println("2");
                 i++;
-                break;
             }
         }
 
         if (i == 2) {
             return true;
         }
+        return false;
+    }
+
+    public boolean checkIfPointsOfVectorsAreEquals(Vector vecA, Vector vecB) {
+//        System.out.println("Vec A:");
+//        printOutPointXAndY(vecA.getA(), vecA.getB());
+//        System.out.println("Vec B:");
+//        printOutPointXAndY(vecB.getA(), vecB.getB());
+        Point pointAofVec1 = vecA.getPointA();
+        Point pointBofVec1 = vecA.getPointB();
+        Point pointAofVec2 = vecB.getPointA();
+        Point pointBofVec2 = vecB.getPointB();
+        if (checkIfPointsAreEquals(pointAofVec1, pointBofVec1) && checkIfPointsAreEquals(pointAofVec2, pointBofVec2)) {
+            return true;
+        }
+        //System.out.println("Punkte sind nicht gleich.");
         return false;
     }
 
@@ -150,7 +168,7 @@ public class SquareWins {
     }
 
     public boolean checkAll(Vector a, Vector b) {
-        if (checkIfEqualLength(a, b) && checkIf90Degree(a, b) && checkIfPointsOfVectorsAreEquals(a, b)) {
+        if (checkIfEqualLength(a, b) && checkIf90Degree(a, b) && checkIfPointsOfVectorsHasEquals(a, b)) {
             return true;
         }
         return false;
@@ -193,7 +211,7 @@ public class SquareWins {
                 if (i != j) {
                     checkIfEqualLength(vectors.get(i), vectors.get(j));
                     checkIf90Degree(vectors.get(i), vectors.get(j));
-                    checkIfPointsOfVectorsAreEquals(vectors.get(i), vectors.get(j));
+                    checkIfPointsOfVectorsHasEquals(vectors.get(i), vectors.get(j));
                 }
             }
         }
@@ -205,8 +223,8 @@ public class SquareWins {
         System.out.println("----------------------Alle Vektoren---------------------: ");
         for (Vector v : vectors) {
 
-            System.out.println("Vektor " + count + ": " + (v.getxVec() < 0 ? "(" + v.getxVec() + ")" : v.getxVec()) + " - " + v.getyVec());
-
+            System.out.println("Vektor " + count + ": " + (v.getxVec() < 0 ? "(" + v.getxVec() + ")" : v.getxVec()) + " | " + v.getyVec());
+            printOutPointXAndY(v.getPointA(), v.getPointB());
             count++;
         }
     }
@@ -218,7 +236,7 @@ public class SquareWins {
         return false;
     }
 
-    public boolean checkIfPointsOfVectorsAreEquals(Vector vecA, Vector vecB) {
+    public boolean checkIfPointsOfVectorsHasEquals(Vector vecA, Vector vecB) {
 //        System.out.println("Vec A:");
 //        printOutPointXAndY(vecA.getA(), vecA.getB());
 //        System.out.println("Vec B:");
@@ -233,7 +251,7 @@ public class SquareWins {
             for (int j = 1; j < points.length; j++) {
                 if (i != j) {
                     if (checkIfPointsAreEquals(points[i], points[j])) {
-                        //System.out.println("Punkte sind gleich.");
+                        System.out.println("Punkte sind gleich.");
                         return true;
                     }
                 }
