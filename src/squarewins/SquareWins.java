@@ -79,27 +79,35 @@ public class SquareWins {
                         printOutPointXAndY(vectorsOfPlayerBlue.get(i).getPointA(), vectorsOfPlayerBlue.get(i).getPointB());
                         System.out.println("Vec 2:");
                         printOutPointXAndY(vectorsOfPlayerBlue.get(j).getPointA(), vectorsOfPlayerBlue.get(j).getPointB());
-
+                        
                         Point[] points = new Point[4];
                         points[0] = vectorsOfPlayerBlue.get(i).getPointA();
                         points[1] = vectorsOfPlayerBlue.get(i).getPointB();
                         points[2] = vectorsOfPlayerBlue.get(j).getPointA();
                         points[3] = vectorsOfPlayerBlue.get(j).getPointB();
-
+                        
                         //setCommonPoint
                         this.commonPoint = setCommonPoint(points);
-                        Point cornerPoint = getCornerpoint();
+                        
+                        //Set the quare vectors
+                        setSquareVectors(vectorsOfPlayerBlue.get(i), vectorsOfPlayerBlue.get(j));
                         buildExpectedVectors();
-                        Point pointNotCommon;
+                        //sort the Arrays
                         setVectorsOfPlayerBlue(convertArrayList(getVectorsOfPlayerBlue()));
                         setVectorsOfPlayerRed(convertArrayList(getVectorsOfPlayerRed()));
-                        if (getSquareVectorA() != null || getSquareVectorB() != null || getExpectedVectorA() != null || getExpectedVectorB() != null) {
+                        //print result
+                        if (getSquareVectorA() != null && getSquareVectorB() != null && getExpectedVectorA() != null && getExpectedVectorB() != null) {
+                            System.out.println("Expected vectors");
                             printPointsOfVectors(expectedVectorA, expectedVectorB);
                         }
                         if (expectedVectorExists()) {
                             expectedVectorA = null;
                             expectedVectorB = null;
+                            System.out.println("");
                             System.out.println("Win!");
+                            System.out.println("");
+                            System.out.println("");
+                            System.out.println("");
                             System.exit(0);
                         }
                     }
@@ -136,14 +144,14 @@ public class SquareWins {
     //set the 2 vectors new to calculate the expected vectors later
     public void setSquareVectors(Vector v1, Vector v2) {
         if (getCommonPoint() == v1.getPointA()) {
-            this.squareVectorA = new Vector(commonPoint, v1.getPointB());
+            this.squareVectorA = new Vector(getCommonPoint(), v1.getPointB());
         } else {
-            this.squareVectorA = new Vector(commonPoint, v1.getPointA());
+            this.squareVectorA = new Vector(getCommonPoint(), v1.getPointA());
         }
         if (getCommonPoint() == v2.getPointA()) {
-            this.squareVectorB = new Vector(commonPoint, v2.getPointB());
+            this.squareVectorB = new Vector(getCommonPoint(), v2.getPointB());
         } else {
-            this.squareVectorB = new Vector(commonPoint, v2.getPointA());
+            this.squareVectorB = new Vector(getCommonPoint(), v2.getPointA());
         }
     }
 
@@ -190,8 +198,10 @@ public class SquareWins {
         return false;
     }
 
+    //Sort and build --> TODO
     private void buildExpectedVectors() {
         if (getSquareVectorA() != null || getSquareVectorB() != null || getExpectedVectorA() != null || getExpectedVectorB() != null) {
+            // TODO if()
             this.expectedVectorA = new Vector(squareVectorA.getPointB(), getCornerpoint());
             this.expectedVectorB = new Vector(squareVectorB.getPointB(), getCornerpoint());
         }
