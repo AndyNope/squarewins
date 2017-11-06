@@ -91,6 +91,8 @@ public class SquareWins {
                         Point cornerPoint = getCornerpoint();
                         buildExpectedVectors();
                         Point pointNotCommon;
+                        setVectorsOfPlayerBlue(convertArrayList(getVectorsOfPlayerBlue()));
+                        setVectorsOfPlayerRed(convertArrayList(getVectorsOfPlayerRed()));
                         if (getSquareVectorA() != null || getSquareVectorB() != null || getExpectedVectorA() != null || getExpectedVectorB() != null) {
                             printPointsOfVectors(expectedVectorA, expectedVectorB);
                         }
@@ -320,23 +322,24 @@ public class SquareWins {
     }
 
     //sort the arrayList
-    public void convertArrayList(ArrayList<Vector> vecs) {
-        
+    public ArrayList<Vector> convertArrayList(ArrayList<Vector> vecs) {
+        Vector temp;
         for (int i = 0; i < vecs.size(); i++) {
+            temp = vecs.get(i);
             if (vecs.get(i).getPointA().getY() > vecs.get(i).getPointB().getY()) {
-
-            }
-            else if(vecs.get(i).getPointA().getY() < vecs.get(i).getPointB().getY())
-            {
-
-            }else{
-                if(vecs.get(i).getPointA().getX() < vecs.get(i).getPointB().getX()){
-                    
-                }else{
-                    
+                temp = new Vector(vecs.get(i).getPointA(), vecs.get(i).getPointB());
+            } else if (vecs.get(i).getPointA().getY() < vecs.get(i).getPointB().getY()) {
+                temp = new Vector(vecs.get(i).getPointB(), vecs.get(i).getPointA());
+            } else {
+                if (vecs.get(i).getPointA().getX() < vecs.get(i).getPointB().getX()) {
+                    temp = new Vector(vecs.get(i).getPointA(), vecs.get(i).getPointB());
+                } else {
+                    temp = new Vector(vecs.get(i).getPointB(), vecs.get(i).getPointA());
                 }
             }
+            vecs.set(i, temp);
         }
+        return vecs;
     }
 
     //printout the vectors
@@ -413,6 +416,15 @@ public class SquareWins {
         return expectedVectorB;
     }
 
+    public void setVectorsOfPlayerBlue(ArrayList<Vector> vectorsOfPlayerBlue) {
+        this.vectorsOfPlayerBlue = vectorsOfPlayerBlue;
+    }
+
+    public void setVectorsOfPlayerRed(ArrayList<Vector> vectorsOfPlayerRed) {
+        this.vectorsOfPlayerRed = vectorsOfPlayerRed;
+    }
+
+    
     /**
      * @param args the command line arguments
      */
