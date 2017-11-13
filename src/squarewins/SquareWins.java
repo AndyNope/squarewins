@@ -79,19 +79,24 @@ public class SquareWins {
                         printOutPointXAndY(vectorsOfPlayerBlue.get(i).getPointA(), vectorsOfPlayerBlue.get(i).getPointB());
                         System.out.println("Vec 2:");
                         printOutPointXAndY(vectorsOfPlayerBlue.get(j).getPointA(), vectorsOfPlayerBlue.get(j).getPointB());
-                        
+
                         Point[] points = new Point[4];
                         points[0] = vectorsOfPlayerBlue.get(i).getPointA();
                         points[1] = vectorsOfPlayerBlue.get(i).getPointB();
                         points[2] = vectorsOfPlayerBlue.get(j).getPointA();
                         points[3] = vectorsOfPlayerBlue.get(j).getPointB();
-                        
+
                         //setCommonPoint
                         this.commonPoint = setCommonPoint(points);
-                        
+
                         //Set the quare vectors
                         setSquareVectors(vectorsOfPlayerBlue.get(i), vectorsOfPlayerBlue.get(j));
                         buildExpectedVectors();
+                        if (getCornerpoint() != null) {
+                            System.out.println("Diagonal-Coordination");
+                            System.out.println(getCornerpoint().getX() + "/" + getCornerpoint().getY());
+                        }
+
                         //sort the Arrays
                         setVectorsOfPlayerBlue(convertArrayList(getVectorsOfPlayerBlue()));
                         setVectorsOfPlayerRed(convertArrayList(getVectorsOfPlayerRed()));
@@ -120,7 +125,8 @@ public class SquareWins {
     private Point getCornerpoint() {
         Point point = null;
         if (getSquareVectorA() != null || getSquareVectorB() != null || getExpectedVectorA() != null || getExpectedVectorB() != null) {
-            point = new Point((getSquareVectorA().getPointB().getX() + getSquareVectorB().getxVec()), (getSquareVectorA().getPointB().getY() + getSquareVectorB().getyVec()));
+
+            point = new Point(3, 4);
         }
         return point;
     }
@@ -143,15 +149,16 @@ public class SquareWins {
 
     //set the 2 vectors new to calculate the expected vectors later
     public void setSquareVectors(Vector v1, Vector v2) {
-        if (getCommonPoint() == v1.getPointA()) {
-            this.squareVectorA = new Vector(getCommonPoint(), v1.getPointB());
-        } else {
+        
+        if (getCommonPoint().equals(v1.getPointA())) {
             this.squareVectorA = new Vector(getCommonPoint(), v1.getPointA());
-        }
-        if (getCommonPoint() == v2.getPointA()) {
-            this.squareVectorB = new Vector(getCommonPoint(), v2.getPointB());
         } else {
+            this.squareVectorA = new Vector(getCommonPoint(), v1.getPointB());
+        }
+        if (getCommonPoint().equals(v2.getPointA())) {
             this.squareVectorB = new Vector(getCommonPoint(), v2.getPointA());
+        } else {
+            this.squareVectorB = new Vector(getCommonPoint(), v2.getPointB());
         }
     }
 
@@ -201,9 +208,20 @@ public class SquareWins {
     //Sort and build --> TODO
     private void buildExpectedVectors() {
         if (getSquareVectorA() != null || getSquareVectorB() != null || getExpectedVectorA() != null || getExpectedVectorB() != null) {
-            // TODO if()
-            this.expectedVectorA = new Vector(squareVectorA.getPointB(), getCornerpoint());
-            this.expectedVectorB = new Vector(squareVectorB.getPointB(), getCornerpoint());
+            //if Commonpoint == Point A of Vec A then using Point B
+            if (getCommonPoint().equals(getSquareVectorA().getPointA())) {
+                this.expectedVectorA = new Vector(getSquareVectorA().getPointB(), getCornerpoint());
+            } else {
+                //else using Point A
+                this.expectedVectorA = new Vector(getSquareVectorA().getPointA(), getCornerpoint());
+            }
+             //if Commonpoint == Point A of Vec B then using Point B
+            if (getCommonPoint().equals(getSquareVectorA().getPointA())) {
+                this.expectedVectorB = new Vector(getSquareVectorB().getPointA(), getCornerpoint());
+            } else {
+                //else using Point A
+                this.expectedVectorB = new Vector(getSquareVectorB().getPointB(), getCornerpoint());
+            }
         }
     }
 
@@ -434,7 +452,6 @@ public class SquareWins {
         this.vectorsOfPlayerRed = vectorsOfPlayerRed;
     }
 
-    
     /**
      * @param args the command line arguments
      */
@@ -447,10 +464,10 @@ public class SquareWins {
         sw.addVector(new Point(1, 3, 'c', false), new Point(3, 4, 'c', false));
         sw.addVector(new Point(4, 2, 'c', false), new Point(3, 4, 'c', false));
         //Quare
-//        sw.addVector(new Point(0, 0, 'c', false), new Point(0, 1, 'c', false));
-//        sw.addVector(new Point(0, 0, 'c', false), new Point(1, 0, 'c', false));
-//        sw.addVector(new Point(1, 0, 'c', false), new Point(1, 1, 'c', false));
-//        sw.addVector(new Point(1, 1, 'c', false), new Point(0, 0, 'c', false));
+        sw.addVector(new Point(0, 0, 'c', false), new Point(0, 1, 'c', false));
+        sw.addVector(new Point(0, 0, 'c', false), new Point(1, 0, 'c', false));
+        sw.addVector(new Point(1, 0, 'c', false), new Point(1, 1, 'c', false));
+        sw.addVector(new Point(1, 1, 'c', false), new Point(0, 0, 'c', false));
 
         //System.out.println("Vektor B: " + (sw.getVectors().get(1).getxVec() < 0 ? "(" + sw.getVectors().get(1).getxVec() + ")" : sw.getVectors().get(1).getxVec()) + " - " + sw.getVectors().get(1).getyVec());
         //sw.testCheckAllVectors(sw.getVectors());
