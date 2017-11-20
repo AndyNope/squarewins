@@ -22,6 +22,10 @@ public class Vector
         this.a = a;
         this.b = b;
     }
+    public Vector() 
+    {
+        
+    }
 
     public Point getPointA() 
     {
