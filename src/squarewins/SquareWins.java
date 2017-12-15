@@ -524,6 +524,8 @@ public class SquareWins {
         sw.addPoint(new Point(0, 1, true));
         sw.addPoint(new Point(1, 0, true));
         sw.addPoint(new Point(1, 1, true));
+        
+        
         sw.updateVectors();
 
         sw.printOutAllVectors(sw.getVectorsOfPlayerBlue());
