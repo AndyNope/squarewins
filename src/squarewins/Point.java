@@ -16,21 +16,18 @@ public class Point {
     */
    private int x;
    private int y;
-   private char color;
-   private boolean pointTaken;
-
-    public Point(int x, int y, char color, boolean pointTaken) {
+   private boolean color;
+   
+    public Point(int x, int y, boolean color) {
         this.x = x;
         this.y = y;
         this.color = color;
-        this.pointTaken = pointTaken;
     }
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-        color = 'c';
-        pointTaken = false;
+        color = true;
     }
     
     public int checkLength()
@@ -40,7 +37,7 @@ public class Point {
         return length;
     }
    
-    public void setColor(int x, int y, char color)
+    public void setColor(int x, int y, boolean color)
     {
        this.color = color;
     }
@@ -61,20 +58,11 @@ public class Point {
         this.y = y;
     }
 
-    public char getColor() {
+    public boolean getColor() {
         return color;
     }
 
-    public void setColor(char color) {
+    public void setColor(boolean color) {
         this.color = color;
     }
-
-    public boolean isPointTaken() {
-        return pointTaken;
-    }
-
-    public void setPointTaken(boolean pointTaken) {
-        this.pointTaken = pointTaken;
-    }
-     
 }
